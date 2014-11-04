@@ -10,7 +10,8 @@ class Hybrid
 {
 
    private:
-      QueueLinked<DoubleNode<T> >* q;
+      //QueueLinked<DoubleNode<T> >* q;
+	  QueueLinked<T>* q;
       SortedListDoublyLinked<T>* sldl;
 
    public:
@@ -27,7 +28,8 @@ class Hybrid
 template < class T >
 Hybrid<T>::Hybrid(int (*comp_items) (T* item_1, T* item_2), int (*comp_keys) (String* key, T* item))
 {
-  q = new QueueLinked<DoubleNode<T> >();
+  //q = new QueueLinked<DoubleNode<T> >();
+  q = new QueueLinked<T>();
   sldl = new SortedListDoublyLinked<T>(comp_items, comp_keys);
 }
 
@@ -46,13 +48,13 @@ Hybrid<T>::~Hybrid()
 
 //---------------------------------------------------------------------------------------------------------------
 //
-//																										Easy Implementation
+//														Easy Implementation
 //
 //---------------------------------------------------------------------------------------------------------------
-/*
+
 
 template < class T >
-bool Hybrid<T>::isEmpty();
+bool Hybrid<T>::isEmpty()
 {
 	return q->isEmpty();
 }
@@ -65,22 +67,28 @@ void Hybrid<T>::enqueue(T* item)
 }
 
 template < class T >
-T* Hybrid<T>::dequeue();
+T* Hybrid<T>::dequeue()
 {
 	T* temp;
 	temp = q->dequeue();
-	sldl->remove(item->getKey());
+	sldl->remove(temp->getKey());
 	return temp;
 }
 
 template < class T >
-ListDoublyLinkedIterator<T>* Hybrid<T>::iterator();
+ListDoublyLinkedIterator<T>* Hybrid<T>::iterator()
 {
-	ListDoublyLinkedIterator<T>* iter = new SortedListDoublyLinked<T>::iterator();
+	ListDoublyLinkedIterator<T>* iter = sldl->iterator();
 	return iter;
 }
-*/
 
+//----------------------------------------------------------------------------------------------
+//
+//                                     Complex implementation
+//
+//----------------------------------------------------------------------------------------------
+
+/*
 template < class T >
 bool Hybrid<T>::isEmpty()
 {
@@ -108,7 +116,7 @@ ListDoublyLinkedIterator<T>* Hybrid<T>::iterator()
 	ListDoublyLinkedIterator<T>* iter = sldl->iterator();
 	return iter;
 }
-
+*/
 
 #endif
 
